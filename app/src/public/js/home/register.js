@@ -1,19 +1,21 @@
 'use strict'
 
 const id = document.querySelector('#id'),
+  name = document.querySelector('#name'),
   psword = document.querySelector("#psword"),
-  loginBtn = document.querySelector('#button')
+  confirmPsword = document.querySelector("#confirm-psword"),
+  registerBtn = document.querySelector('#button')
 
+registerBtn.addEventListener('click', register)
 
-loginBtn.addEventListener('click', login)
-
-function login() {
+function register() {
     const req = {
         id: id.value,
-        psword: psword.value
+        name: name.value,
+        psword: psword.value,
+        cofirmPsword: confirmPsword.value
     }
-
-    fetch('/login', {
+    fetch('/register', {
         method: 'post',
         headers: {
             "Content-Type": 'application/json'
@@ -23,12 +25,12 @@ function login() {
       .then((res) => res.json())
       .then((res) => {
         if (res.success) {
-            location.href = '/'
+            location.href = '/login'
         } else {
             alert(res.msg)
         }
       })
       .catch((err) => {
-          console.error('로그인 중 에러 발생')
+          console.error('회원가입 중 에러 발생')
       })
 }
